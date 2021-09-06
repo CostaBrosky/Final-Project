@@ -15,6 +15,6 @@ public class Municipality {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne
+    @ManyToOne
     private Province province;
 }

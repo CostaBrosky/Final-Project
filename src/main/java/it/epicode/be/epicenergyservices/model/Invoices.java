@@ -28,6 +28,6 @@ public class Invoices {
     @Column(nullable = false)
     private Integer number;
 
-    @OneToOne
+    @ManyToOne
     private InvoiceStatus status;
 }

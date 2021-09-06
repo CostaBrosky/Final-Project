@@ -3,8 +3,8 @@ package it.epicode.be.epicenergyservices.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,7 +25,7 @@ public class Client {
 
     private LocalDateTime insertionDate;
 
-    private LocalDate lastContatctDate;
+    private LocalDateTime lastContatctDate;
 
     @Column(nullable = false)
     private String pec;
@@ -44,13 +44,16 @@ public class Client {
     @Column(nullable = false)
     private String contactPhone;
 
-    @OneToMany
-    private List<Address> adress;
-
-    @OneToMany
-    private List<Invoices> invoices;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ClientType type;
+
+    @OneToMany
+    private List<Invoices> invoices = new ArrayList<>();
+
+    @OneToOne
+    private Address registeredOffice;
+
+    @OneToOne
+    private Address operationalHeadquarters;
 }
