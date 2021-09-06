@@ -2,15 +2,12 @@ package it.epicode.be.epicenergyservices.service;
 
 import it.epicode.be.epicenergyservices.model.Client;
 import it.epicode.be.epicenergyservices.model.Municipality;
-import it.epicode.be.epicenergyservices.repository.IClientFilterRepository;
 import it.epicode.be.epicenergyservices.repository.IClientRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -66,15 +63,9 @@ public class ClientService implements IClientService{
     public Optional<Client> findByOperationalHeadquarters(Municipality operationalHeadquarters_municipality) {
         return clientRepository.findByOperationalHeadquarters_Municipality(operationalHeadquarters_municipality);
     }
-
-//    @Override
-//    public Page<Client> findByAmount(BigDecimal amount) {
-//        return clientFilterRepository.findAllByInvoices(amount);
-//    }
-//
-//    @Override
-//    public Page<Client> filterByInsertionDate(LocalDateTime insertionDate) {
-//        Pageable first = PageRequest.of(0,1000);
-//        return clientFilterRepository.findByInsertionDate(insertionDate, first);
-//    }
+    
+    @Override
+    public Page<Client> getByName(Pageable pageable) {
+        return clientRepository.findAll(pageable);
+    }
 }

@@ -3,6 +3,8 @@ package it.epicode.be.epicenergyservices.controller;
 import it.epicode.be.epicenergyservices.model.InvoiceStatus;
 import it.epicode.be.epicenergyservices.service.IInvoiceStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +21,14 @@ public class InvoiceStatusController {
         return new ResponseEntity<>(invoiceStatusService.saveStatus(status), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAllInvoice() {
+    @GetMapping("/n")
+    public ResponseEntity<?> findAllInvoice() {
         return new ResponseEntity<>(invoiceStatusService.findAllInvoice(), HttpStatus.OK);
+    }
+
+    @GetMapping("/p")
+    public ResponseEntity<Page<InvoiceStatus>> getAllInvoice(Pageable pageable) {
+        return new ResponseEntity<>(invoiceStatusService.getAllInvoice(pageable), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

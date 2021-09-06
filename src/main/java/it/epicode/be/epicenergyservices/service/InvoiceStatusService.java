@@ -2,6 +2,8 @@ package it.epicode.be.epicenergyservices.service;
 
 import it.epicode.be.epicenergyservices.model.InvoiceStatus;
 import it.epicode.be.epicenergyservices.repository.IInvoiceStatusRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +30,11 @@ public class InvoiceStatusService implements IInvoiceStatusService {
     @Override
     public List<InvoiceStatus> findAllInvoice() {
         return invoiceStatusRepository.findAll();
+    }
+
+    @Override
+    public Page<InvoiceStatus> getAllInvoice(Pageable pagable) {
+
+        return invoiceStatusRepository.findAll(pagable);
     }
 }

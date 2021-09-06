@@ -3,6 +3,8 @@ package it.epicode.be.epicenergyservices.controller;
 import it.epicode.be.epicenergyservices.model.Client;
 import it.epicode.be.epicenergyservices.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,11 @@ public class ClientController {
         return new ResponseEntity<>(clientService.findAllClient(), HttpStatus.OK);
     }
 
+    @GetMapping("/p")
+    public ResponseEntity<Page<Client>> getByName(Pageable pageable) {
+        return new ResponseEntity<>(clientService.getByName(pageable), HttpStatus.OK);
+    }
+
     @GetMapping("{name}")
     public ResponseEntity<?> getClientByName(@PathVariable String name) {
         clientService.findByName(name);
@@ -44,5 +51,4 @@ public class ClientController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
