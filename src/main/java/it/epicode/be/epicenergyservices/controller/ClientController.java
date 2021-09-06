@@ -1,13 +1,16 @@
 package it.epicode.be.epicenergyservices.controller;
 
+import com.turkraft.springfilter.boot.Filter;
 import it.epicode.be.epicenergyservices.model.Client;
 import it.epicode.be.epicenergyservices.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("api/client")

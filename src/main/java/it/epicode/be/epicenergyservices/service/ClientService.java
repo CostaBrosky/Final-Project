@@ -5,6 +5,7 @@ import it.epicode.be.epicenergyservices.model.Municipality;
 import it.epicode.be.epicenergyservices.repository.IClientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,4 +69,5 @@ public class ClientService implements IClientService{
     public Page<Client> getByName(Pageable pageable) {
         return clientRepository.findAll(pageable);
     }
+
 }
