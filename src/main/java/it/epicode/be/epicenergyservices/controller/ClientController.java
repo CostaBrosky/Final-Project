@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("client")
+@RequestMapping("api/client")
 public class ClientController {
 
     @Autowired
     private IClientService clientService;
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<?> saveClient(@RequestBody Client client) {
         return new ResponseEntity<>(clientService.saveClient(client), HttpStatus.CREATED);
     }
@@ -44,6 +44,5 @@ public class ClientController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 }

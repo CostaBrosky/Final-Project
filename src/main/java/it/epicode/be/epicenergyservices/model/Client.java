@@ -15,10 +15,8 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 100)
     private String businessName;
 
-    @Column(unique = true, nullable = false)
     private String vatNumber;
 
     private String email;
@@ -27,25 +25,19 @@ public class Client {
 
     private LocalDateTime lastContatctDate;
 
-    @Column(nullable = false)
     private String pec;
 
     private String phone;
 
-    @Column(nullable = false)
     private String contactEmail;
 
-    @Column(nullable = false)
     private String contactName;
 
-    @Column(nullable = false)
     private String contactSurname;
 
-    @Column(nullable = false)
     private String contactPhone;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private ClientType type;
 
     @OneToMany

@@ -20,11 +20,8 @@ public class ClientService implements IClientService{
 
     private final IClientRepository clientRepository;
 
-    private final IClientFilterRepository clientFilterRepository;
-
-    public ClientService(IClientRepository clientRepository, IClientFilterRepository clientFilterRepository) {
+    public ClientService(IClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        this.clientFilterRepository = clientFilterRepository;
     }
 
     @Override
@@ -70,14 +67,14 @@ public class ClientService implements IClientService{
         return clientRepository.findByOperationalHeadquarters_Municipality(operationalHeadquarters_municipality);
     }
 
-    @Override
-    public Page<Client> findByAmount(BigDecimal amount) {
-        return clientFilterRepository.findAllByInvoices(amount);
-    }
-
-    @Override
-    public Page<Client> filterByInsertionDate(LocalDateTime insertionDate) {
-        Pageable first = PageRequest.of(0,1000);
-        return clientFilterRepository.findByInsertionDate(insertionDate, first);
-    }
+//    @Override
+//    public Page<Client> findByAmount(BigDecimal amount) {
+//        return clientFilterRepository.findAllByInvoices(amount);
+//    }
+//
+//    @Override
+//    public Page<Client> filterByInsertionDate(LocalDateTime insertionDate) {
+//        Pageable first = PageRequest.of(0,1000);
+//        return clientFilterRepository.findByInsertionDate(insertionDate, first);
+//    }
 }

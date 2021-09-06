@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public interface IClientFilterRepository extends PagingAndSortingRepository<Client, Long> {
-
-    Page<Client> findAllByInvoices(@Param("amount")BigDecimal amount);
-
-    Page<Client> findByInsertionDate(LocalDateTime insertionDate, Pageable pageable);
+//
+//    Page<Client> findAllByInvoices(@Param("amount")BigDecimal amount);
+//
+//    Page<Client> findByInsertionDate(LocalDateTime insertionDate, Pageable pageable);
 }
