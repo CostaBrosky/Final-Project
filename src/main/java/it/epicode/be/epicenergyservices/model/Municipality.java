@@ -6,23 +6,15 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Address {
+public class Municipality {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String street;
-
-    @Column(nullable = false)
-    private String civic;
-
-    private String locality;
-
-    @Column(nullable = false)
-    private int postalCode;
+    private String name;
 
     @OneToOne
-    private Municipality municipality;
+    private Province province;
 }
