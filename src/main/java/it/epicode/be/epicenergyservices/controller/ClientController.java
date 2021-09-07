@@ -16,7 +16,7 @@ public class ClientController {
     @Autowired
     private IClientService clientService;
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<?> saveClient(@RequestBody Client client) {
         return new ResponseEntity<>(clientService.saveClient(client), HttpStatus.CREATED);
     }

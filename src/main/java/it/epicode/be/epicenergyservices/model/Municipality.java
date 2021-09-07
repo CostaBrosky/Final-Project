@@ -12,6 +12,10 @@ public class Municipality {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long idProvince;
+
+    private Long idMunicipality;
+
     @Column(nullable = false)
     private String name;
 
