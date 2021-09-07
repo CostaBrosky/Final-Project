@@ -22,8 +22,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+public class SecurityConfig extends WebSecurityConfigurerAdapter
+{
     @Value("${authentication.internal-api-key}")
     private String internalApiKey;
 
@@ -31,19 +31,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService userDetailsService;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception
+    {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
     @Override
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception
+    {
         return super.authenticationManagerBean();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception
+    {
         http.cors();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -62,25 +65,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public InternalApiAuthenticationFilter internalApiAuthenticationFilter() {
+    public InternalApiAuthenticationFilter internalApiAuthenticationFilter()
+    {
         return new InternalApiAuthenticationFilter(internalApiKey);
     }
 
     @Bean
-    public JwtAuthorizationFilter jwtAuthorizationFilter() {
+    public JwtAuthorizationFilter jwtAuthorizationFilter()
+    {
         return new JwtAuthorizationFilter();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder()
+    {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
+    public WebMvcConfigurer corsConfigurer()
+    {
+        return new WebMvcConfigurer()
+        {
             @Override
-            public void addCorsMappings(CorsRegistry registry) {
+            public void addCorsMappings(CorsRegistry registry)
+            {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
                         .allowedMethods("*");
@@ -88,3 +97,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         };
     }
 }
+
+

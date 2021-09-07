@@ -10,7 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticationService implements IAuthenticationService{
+public class AuthenticationService implements IAuthenticationService
+{
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -18,7 +19,8 @@ public class AuthenticationService implements IAuthenticationService{
     private IJwtProvider jwtProvider;
 
     @Override
-    public User signInAndReturnJWT(User signInRequest) {
+    public User signInAndReturnJWT(User signInRequest)
+    {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword())
         );
