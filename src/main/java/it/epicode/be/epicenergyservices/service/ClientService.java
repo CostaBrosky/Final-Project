@@ -5,7 +5,6 @@ import it.epicode.be.epicenergyservices.model.Municipality;
 import it.epicode.be.epicenergyservices.repository.IClientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientService implements IClientService{
+public class ClientService implements IClientService {
 
     private final IClientRepository clientRepository;
 
@@ -52,7 +51,7 @@ public class ClientService implements IClientService{
 
     @Override
     public Optional<Client> findByInsertionDate(LocalDateTime insertionDate) {
-        return  clientRepository.findByInsertionDate(insertionDate);
+        return clientRepository.findByInsertionDate(insertionDate);
     }
 
     @Override
@@ -64,10 +63,9 @@ public class ClientService implements IClientService{
     public Optional<Client> findByOperationalHeadquarters(Municipality operationalHeadquarters_municipality) {
         return clientRepository.findByOperationalHeadquarters_Municipality(operationalHeadquarters_municipality);
     }
-    
+
     @Override
     public Page<Client> getByName(Pageable pageable) {
         return clientRepository.findAll(pageable);
     }
-
 }

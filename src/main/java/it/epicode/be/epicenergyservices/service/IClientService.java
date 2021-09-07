@@ -4,7 +4,6 @@ import it.epicode.be.epicenergyservices.model.Client;
 import it.epicode.be.epicenergyservices.model.Municipality;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;
 import java.util.List;

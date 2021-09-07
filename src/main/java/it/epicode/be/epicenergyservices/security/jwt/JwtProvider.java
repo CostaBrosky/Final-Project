@@ -53,7 +53,6 @@ public class JwtProvider implements IJwtProvider{
         }
 
         String username = claims.getSubject();
-        Long userId = (Long) claims.put("userId", Long.class);
 
         Set<GrantedAuthority> authorities = Arrays.stream(claims.get("roles").toString().split(","))
                 .map(SecurityUtils::convertToAuthority)
@@ -62,7 +61,6 @@ public class JwtProvider implements IJwtProvider{
         UserDetails userDetails = UserPrincipal.builder()
                 .username(username)
                 .authorities(authorities)
-                .id(userId)
                 .build();
 
         if (username == null)
@@ -82,11 +80,7 @@ public class JwtProvider implements IJwtProvider{
             return false;
         }
 
-        if (claims.getExpiration().before(new Date()))
-        {
-            return false;
-        }
-        return true;
+        return !claims.getExpiration().before(new Date());
     }
 
     private Claims extractClaims(HttpServletRequest request)
