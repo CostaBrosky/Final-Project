@@ -46,7 +46,7 @@ public class MunicipalityService implements IMunicipalityService {
     public Municipality updateMunicipality(Municipality p, Long id) {
         return municipalityRepository.findById(id)
                 .map(muni -> {
-                    muni.setIdProvince(p.getIdProvince());
+                    muni.setId(p.getId());
                     muni.setIdMunicipality(p.getIdMunicipality());
                     muni.setName(p.getName());
                     muni.setProvince(p.getProvince());

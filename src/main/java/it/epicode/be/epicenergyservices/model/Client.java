@@ -3,6 +3,7 @@ package it.epicode.be.epicenergyservices.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public class Client {
     private String contactSurname;
 
     private String contactPhone;
+
+    private BigDecimal annualRevenue;
 
     @Enumerated(EnumType.STRING)
     private ClientType type;

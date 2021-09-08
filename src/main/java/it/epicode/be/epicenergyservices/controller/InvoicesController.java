@@ -26,12 +26,12 @@ public class InvoicesController {
         return new ResponseEntity<>(invoicesService.findAllInvoices(), HttpStatus.OK);
     }
 
-    @GetMapping("/by-name")
-    public ResponseEntity<Page<Invoices>> getInvoiceByName(Pageable pageable) {
-        return new ResponseEntity<>(invoicesService.getInvoicesByName(pageable), HttpStatus.OK);
+    @GetMapping("/{year}")
+    public ResponseEntity<Page<Invoices>> getInvoiceByYear(@PathVariable Integer year,  Pageable pageable) {
+        return new ResponseEntity<>(invoicesService.getInvoicesByYear(year, pageable), HttpStatus.OK);
     }
 
-    @DeleteMapping("{invoiceId}")
+    @DeleteMapping("/{invoiceId}")
     public ResponseEntity<?> deleteInvoice(@PathVariable Long invoiceId) {
         invoicesService.deleteInvoices(invoiceId);
 

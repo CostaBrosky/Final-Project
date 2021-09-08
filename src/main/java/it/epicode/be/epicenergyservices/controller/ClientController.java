@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("api/client")
 public class ClientController {
@@ -57,4 +60,45 @@ public class ClientController {
     public ResponseEntity<Client> updateClient(@RequestBody Client newStatus, @PathVariable Long id) {
         return new ResponseEntity<>(clientService.updateClient(newStatus, id), HttpStatus.OK);
     }
+
+    @GetMapping("/between/{min}/{max}")
+    public ResponseEntity<Page<Client>> findByFatturatoAnnualeGreatherThan(@PathVariable BigDecimal min, @PathVariable BigDecimal max, Pageable p) {
+            Page<Client> risult = clientService.findByAmountBetween(min, max, p);
+            if (risult.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(risult, HttpStatus.OK);
+            }
+    }
+
+    @GetMapping("/contain/{name}")
+    public ResponseEntity<Page<Client>> findByBusinessName(@PathVariable String name, Pageable pageable) {
+        Page<Client> risult = clientService.findByBusinessNameContaining(name, pageable);
+        if (risult.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(risult, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/date")
+    public ResponseEntity<Page<Client>> findByInsertionDateBefore(@RequestBody LocalDateTime before, Pageable pageable) {
+        Page<Client> risult = clientService.findByInsertionDateBefore(before, pageable);
+        if (risult.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(risult, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/last-date")
+    public ResponseEntity<Page<Client>> findByLastContatctDateBefore(@RequestBody LocalDateTime lastDate, Pageable p) {
+            Page<Client> risultato = clientService.findByInsertionDateBefore(lastDate, p);
+            if (risultato.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(risultato, HttpStatus.OK);
+            }
+    }
+
 }

@@ -1,7 +1,6 @@
 package it.epicode.be.epicenergyservices.controller;
 
 import it.epicode.be.epicenergyservices.model.Municipality;
-import it.epicode.be.epicenergyservices.model.Province;
 import it.epicode.be.epicenergyservices.service.IMunicipalityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

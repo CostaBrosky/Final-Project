@@ -34,8 +34,8 @@ public class InvoicesService implements IInvoicesService {
     }
 
     @Override
-    public Page<Invoices> getInvoicesByName(Pageable pageable) {
-        return invoiceRepository.findAll(pageable);
+    public Page<Invoices> getInvoicesByYear(Integer year, Pageable pageable) {
+        return invoiceRepository.findAllByYear(year, pageable);
     }
 
     @Override

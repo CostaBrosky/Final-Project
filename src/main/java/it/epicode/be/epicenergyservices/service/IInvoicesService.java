@@ -13,7 +13,7 @@ public interface IInvoicesService {
 
     List<Invoices> findAllInvoices();
 
-    Page<Invoices> getInvoicesByName(Pageable pageable);
+    Page<Invoices> getInvoicesByYear(Integer year, Pageable pageable);
 
     Invoices updateInvoices(Invoices s, Long id);
 }

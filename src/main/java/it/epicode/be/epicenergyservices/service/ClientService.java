@@ -1,14 +1,13 @@
 package it.epicode.be.epicenergyservices.service;
 
-import it.epicode.be.epicenergyservices.model.Address;
 import it.epicode.be.epicenergyservices.model.Client;
-import it.epicode.be.epicenergyservices.model.Municipality;
 import it.epicode.be.epicenergyservices.repository.IClientRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -51,21 +50,6 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public Optional<Client> findByInsertionDate(LocalDateTime insertionDate) {
-        return clientRepository.findByInsertionDate(insertionDate);
-    }
-
-    @Override
-    public Optional<Client> findByLastContatctDate(LocalDateTime lastContatctDate) {
-        return clientRepository.findByLastContatctDate(lastContatctDate);
-    }
-
-    @Override
-    public Optional<Client> findByOperationalHeadquarters(Municipality operationalHeadquarters_municipality) {
-        return clientRepository.findByOperationalHeadquarters_Municipality(operationalHeadquarters_municipality);
-    }
-
-    @Override
     public Page<Client> getByName(Pageable pageable) {
         return clientRepository.findAll(pageable);
     }
@@ -93,4 +77,25 @@ public class ClientService implements IClientService {
                     return clientRepository.save(s);
                 });
     }
+
+    @Override
+    public Page<Client> findByAmountBetween(BigDecimal min, BigDecimal max, Pageable p) {
+        return clientRepository.findByAnnualRevenueBetween(min, max, p);
+    }
+
+    @Override
+    public Page<Client> findByBusinessNameContaining(String name, Pageable pageable) {
+        return clientRepository.findByBusinessNameContaining(name, pageable);
+    }
+
+    @Override
+    public Page<Client> findByInsertionDateBefore(LocalDateTime before, Pageable pageable) {
+        return clientRepository.findByInsertionDateBefore(before, pageable);
+    }
+
+    @Override
+    public Page<Client> findByLastContatctDateBefore(LocalDateTime lastContact, Pageable pageable) {
+        return clientRepository.findByInsertionDateBefore(lastContact, pageable);
+    }
+
 }

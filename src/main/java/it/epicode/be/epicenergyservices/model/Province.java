@@ -12,12 +12,9 @@ public class Province {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String acronyms;
 
-    @Column(nullable = false)
     private String region;
 }
