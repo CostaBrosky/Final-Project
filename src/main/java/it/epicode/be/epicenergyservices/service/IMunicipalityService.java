@@ -18,4 +18,6 @@ public interface IMunicipalityService {
     Page<Municipality> getAllMunicipality(Pageable pageable);
 
     Municipality updateMunicipality(Municipality p, Long id);
+
+    Optional<Municipality> findByName(String municipality);
 }

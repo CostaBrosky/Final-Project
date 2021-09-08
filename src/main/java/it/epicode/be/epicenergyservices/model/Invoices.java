@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -18,14 +19,17 @@ public class Invoices {
     private Integer year;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(nullable = false)
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private Integer number;
+    private Long number;
 
     @ManyToOne
     private InvoiceStatus status;
+
+    @ManyToOne
+    private Client client;
 }

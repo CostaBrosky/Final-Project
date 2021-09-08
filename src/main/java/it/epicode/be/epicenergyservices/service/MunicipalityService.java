@@ -57,4 +57,9 @@ public class MunicipalityService implements IMunicipalityService {
                     return municipalityRepository.save(p);
                 });
     }
+
+    @Override
+    public Optional<Municipality> findByName(String municipality) {
+        return municipalityRepository.findByName(municipality);
+    }
 }

@@ -1,17 +1,21 @@
 package it.epicode.be.epicenergyservices.controller;
 
-import it.epicode.be.epicenergyservices.model.Address;
+import it.epicode.be.epicenergyservices.data.ClientDto;
 import it.epicode.be.epicenergyservices.model.Client;
 import it.epicode.be.epicenergyservices.service.IClientService;
+import it.epicode.be.epicenergyservices.service.IMunicipalityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 
 @RestController
 @RequestMapping("api/client")
@@ -20,9 +24,20 @@ public class ClientController {
     @Autowired
     private IClientService clientService;
 
+    @Autowired
+    private IMunicipalityService municipalityService;
+
     @PostMapping("/save")
-    public ResponseEntity<?> saveClient(@RequestBody Client client) {
-        return new ResponseEntity<>(clientService.saveClient(client), HttpStatus.CREATED);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> insertClient(@RequestBody ClientDto cl) {
+        Client c;
+        try {
+            c = cl.toClient(municipalityService);
+            clientService.saveClient(c);
+            return new ResponseEntity<ClientDto>(ClientDto.fromClient(c), HttpStatus.CREATED);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("{clientId}")

@@ -9,7 +9,6 @@ import it.epicode.be.epicenergyservices.model.Province;
 import it.epicode.be.epicenergyservices.repository.IProvinceRepository;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
