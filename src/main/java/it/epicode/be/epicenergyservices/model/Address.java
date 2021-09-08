@@ -12,15 +12,12 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String street;
 
-    @Column(nullable = false)
     private String civic;
 
     private String locality;
 
-    @Column(nullable = false)
     private int postalCode;
 
     @OneToOne

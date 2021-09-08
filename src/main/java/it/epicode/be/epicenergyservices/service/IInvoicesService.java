@@ -14,4 +14,6 @@ public interface IInvoicesService {
     List<Invoices> findAllInvoices();
 
     Page<Invoices> getInvoicesByName(Pageable pageable);
+
+    Invoices updateInvoices(Invoices s, Long id);
 }

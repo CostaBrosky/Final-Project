@@ -1,5 +1,6 @@
 package it.epicode.be.epicenergyservices.controller;
 
+import it.epicode.be.epicenergyservices.model.Address;
 import it.epicode.be.epicenergyservices.model.Client;
 import it.epicode.be.epicenergyservices.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,15 @@ public class ClientController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("edit-client/{businessName}{id}")
+    @PutMapping("edit-client/{businessName}/{id}")
     public ResponseEntity<?> updateClient(@PathVariable String businessName,@PathVariable Long id) {
         clientService.updateClientBusinessName(businessName, id);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Client> updateClient(@RequestBody Client newStatus, @PathVariable Long id) {
+        return new ResponseEntity<>(clientService.updateClient(newStatus, id), HttpStatus.OK);
     }
 }

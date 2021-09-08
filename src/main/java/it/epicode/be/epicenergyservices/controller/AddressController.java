@@ -21,12 +21,12 @@ public class AddressController {
         return new ResponseEntity<>(addressService.saveAddress(address), HttpStatus.CREATED);
     }
 
-    @GetMapping("/n")
+    @GetMapping
     public ResponseEntity<?> getAllAddress() {
         return new ResponseEntity<>(addressService.findAllAddress(), HttpStatus.OK);
     }
 
-    @GetMapping("/by-name")
+    @GetMapping("/p")
     public ResponseEntity<Page<Address>> getAddressByName(Pageable pageable) {
         return new ResponseEntity<>(addressService.getAddressByName(pageable), HttpStatus.OK);
     }
@@ -36,5 +36,10 @@ public class AddressController {
         addressService.deleteAddress(addressId);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Address> updateAddress(@RequestBody Address newStatus, @PathVariable Long id) {
+        return new ResponseEntity<>(addressService.updateAddress(newStatus, id), HttpStatus.OK);
     }
 }

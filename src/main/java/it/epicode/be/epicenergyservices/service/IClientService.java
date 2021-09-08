@@ -27,4 +27,6 @@ public interface IClientService {
     Optional<Client> findByOperationalHeadquarters(Municipality operationalHeadquarters_municipality);
 
     Page<Client> getByName(Pageable pageable);
+
+    Client updateClient(Client s, Long id);
 }

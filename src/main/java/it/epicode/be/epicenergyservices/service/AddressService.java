@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressService implements IAddressService {
@@ -35,5 +36,27 @@ public class AddressService implements IAddressService {
     @Override
     public Page<Address> getAddressByName(Pageable pageable) {
         return addressRepository.findAll(pageable);
+    }
+
+    @Override
+    public Optional<Address> findById (Long id) {
+        return addressRepository.findById(id);
+    }
+
+    @Override
+    public Address updateAddress(Address s, Long id) {
+        return addressRepository.findById(id)
+                .map( status -> {
+                    status.setStreet(s.getStreet());
+                    status.setCivic(s.getCivic());
+                    status.setLocality(s.getLocality());
+                    status.setPostalCode(s.getPostalCode());
+                    status.setMunicipality(s.getMunicipality());
+                    return addressRepository.save(status);
+                })
+                .orElseGet(() -> {
+                    s.setId(id);
+                    return addressRepository.save(s);
+                });
     }
 }

@@ -37,4 +37,9 @@ public class InvoicesController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Invoices> updateInvoices(@RequestBody Invoices newStatus, @PathVariable Long id) {
+        return new ResponseEntity<>(invoicesService.updateInvoices(newStatus, id), HttpStatus.OK);
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InvoiceStatusService implements IInvoiceStatusService {
@@ -36,5 +37,23 @@ public class InvoiceStatusService implements IInvoiceStatusService {
     public Page<InvoiceStatus> getAllInvoice(Pageable pagable) {
 
         return invoiceStatusRepository.findAll(pagable);
+    }
+
+    @Override
+    public Optional<InvoiceStatus> findById(Long id) {
+        return invoiceStatusRepository.findById(id);
+    }
+
+    @Override
+    public InvoiceStatus updateInvoiceStatus(InvoiceStatus s, Long id) {
+        return invoiceStatusRepository.findById(id)
+                .map( status -> {
+                    status.setStatus(s.getStatus());
+                    return invoiceStatusRepository.save(status);
+                })
+                .orElseGet(() -> {
+                    s.setId(id);
+                    return invoiceStatusRepository.save(s);
+                });
     }
 }

@@ -1,5 +1,6 @@
 package it.epicode.be.epicenergyservices.service;
 
+import it.epicode.be.epicenergyservices.model.Address;
 import it.epicode.be.epicenergyservices.model.Client;
 import it.epicode.be.epicenergyservices.model.Municipality;
 import it.epicode.be.epicenergyservices.repository.IClientRepository;
@@ -67,5 +68,29 @@ public class ClientService implements IClientService {
     @Override
     public Page<Client> getByName(Pageable pageable) {
         return clientRepository.findAll(pageable);
+    }
+
+    @Override
+    public Client updateClient(Client s, Long id) {
+        return clientRepository.findById(id)
+                .map( status -> {
+                    status.setBusinessName(s.getBusinessName());
+                    status.setVatNumber(s.getVatNumber());
+                    status.setEmail(s.getEmail());
+                    status.setPec(s.getPec());
+                    status.setPhone(s.getPhone());
+                    status.setContactEmail(s.getContactEmail());
+                    status.setContactName(s.getContactName());
+                    status.setContactSurname(s.getContactSurname());
+                    status.setContactPhone(s.getContactPhone());
+                    status.setType(s.getType());
+                    status.setRegisteredOffice(s.getRegisteredOffice());
+                    status.setOperationalHeadquarters(s.getOperationalHeadquarters());
+                    return clientRepository.save(status);
+                })
+                .orElseGet(() -> {
+                    s.setId(id);
+                    return clientRepository.save(s);
+                });
     }
 }

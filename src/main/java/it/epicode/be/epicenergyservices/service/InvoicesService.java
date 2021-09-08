@@ -1,5 +1,6 @@
 package it.epicode.be.epicenergyservices.service;
 
+import it.epicode.be.epicenergyservices.model.Address;
 import it.epicode.be.epicenergyservices.model.Invoices;
 import it.epicode.be.epicenergyservices.repository.IInvoiceRepository;
 import org.springframework.data.domain.Page;
@@ -35,5 +36,21 @@ public class InvoicesService implements IInvoicesService {
     @Override
     public Page<Invoices> getInvoicesByName(Pageable pageable) {
         return invoiceRepository.findAll(pageable);
+    }
+
+    @Override
+    public Invoices updateInvoices(Invoices s, Long id) {
+        return invoiceRepository.findById(id)
+                .map( status -> {
+                    status.setYear(s.getYear());
+                    status.setAmount(s.getAmount());
+                    status.setNumber(s.getNumber());
+                    status.setStatus(s.getStatus());
+                    return invoiceRepository.save(status);
+                })
+                .orElseGet(() -> {
+                    s.setId(id);
+                    return invoiceRepository.save(s);
+                });
     }
 }
