@@ -1,5 +1,6 @@
 package it.epicode.be.epicenergyservices.controller;
 
+import it.epicode.be.epicenergyservices.data.AddressDto;
 import it.epicode.be.epicenergyservices.model.Address;
 import it.epicode.be.epicenergyservices.service.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+
 @RestController
 @RequestMapping("/api/address")
 public class AddressController {
@@ -17,8 +20,15 @@ public class AddressController {
     private IAddressService addressService;
 
     @PostMapping
-    public ResponseEntity<?> saveAddress(@RequestBody Address address) {
-        return new ResponseEntity<>(addressService.saveAddress(address), HttpStatus.CREATED);
+    public ResponseEntity<?> saveAddress(@RequestBody AddressDto address) {
+        Address c;
+        try {
+            c = address.toAddress(addressService);
+            addressService.saveAddress(c);
+            return new ResponseEntity<>(AddressDto.fromAddress(c), HttpStatus.CREATED);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @GetMapping

@@ -14,7 +14,6 @@ public class Municipality {
 
     private String idMunicipality;
 
-    @Column(nullable = false)
     private String name;
 
     @ManyToOne

@@ -27,14 +27,13 @@ public class ClientController {
     @Autowired
     private IMunicipalityService municipalityService;
 
-    @PostMapping("/save")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping
     public ResponseEntity<?> insertClient(@RequestBody ClientDto cl) {
         Client c;
         try {
             c = cl.toClient(municipalityService);
             clientService.saveClient(c);
-            return new ResponseEntity<ClientDto>(ClientDto.fromClient(c), HttpStatus.CREATED);
+            return new ResponseEntity<>(ClientDto.fromClient(c), HttpStatus.CREATED);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         }
