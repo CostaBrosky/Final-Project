@@ -1,5 +1,6 @@
 package it.epicode.be.epicenergyservices.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,8 +23,10 @@ public class Client {
 
     private String email;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime insertionDate;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime lastContatctDate;
 
     private String pec;

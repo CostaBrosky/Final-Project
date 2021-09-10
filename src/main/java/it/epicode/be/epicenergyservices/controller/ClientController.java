@@ -95,9 +95,9 @@ public class ClientController {
         }
     }
 
-    @GetMapping("/date")
-    public ResponseEntity<Page<Client>> findByInsertionDateBefore(@RequestBody LocalDateTime before, Pageable pageable) {
-        Page<Client> risult = clientService.findByInsertionDateBefore(before, pageable);
+    @GetMapping("/date/{date}")
+    public ResponseEntity<Page<Client>> findByInsertionDateBefore(@PathVariable LocalDateTime date, Pageable pageable) {
+        Page<Client> risult = clientService.findByInsertionDateBefore(date, pageable);
         if (risult.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
